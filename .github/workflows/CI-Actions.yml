@@ -16,4 +16,5 @@ jobs:
       - name: Check node.js version
         run: | 
           node -v
-
+          npm build
+          npm preview
