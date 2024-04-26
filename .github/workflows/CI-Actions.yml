@@ -34,5 +34,5 @@ jobs:
     - name: SonarQube Scan
       uses: kitabisa/sonarqube-action@v1.2.0
       with:
-        host: "http://13.210.202.100:9000"
+        host: "http://54.206.146.88:9000"
         login: "e18e4b27df312c3e72605e26cdf668d00162ea8e"
