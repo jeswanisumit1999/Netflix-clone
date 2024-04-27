@@ -22,17 +22,27 @@ jobs:
 
       - name: Build project
         run: npm run build
-  sonarqube:
-    name: SonarQube Trigger
+        
+  analyze_and_scan:
     runs-on: ubuntu-latest
     steps:
-    - name: Checking out
-      uses: actions/checkout@master
+    - uses: actions/checkout@v4
       with:
-        # Disabling shallow clone is recommended for improving relevancy of reporting
+        # Disabling shallow clones is recommended for improving the relevancy of reporting
         fetch-depth: 0
     - name: SonarQube Scan
-      uses: kitabisa/sonarqube-action@v1.2.0
-      with:
-        host: "http://54.206.146.88:9000"
-        login: "e18e4b27df312c3e72605e26cdf668d00162ea8e"
+      if: false
+      uses: sonarsource/sonarqube-scan-action@master
+      env:
+        SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+        SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
+    - name: install trivy
+      run: |
+        #install trivy
+        sudo apt-get install wget apt-transport-https gnupg lsb-release -y
+        wget -qO - https://aquasecurity.github.io/trivy-repo/deb/public.key | gpg --dearmor | sudo tee /usr/share/keyrings/trivy.gpg > /dev/null
+        echo "deb [signed-by=/usr/share/keyrings/trivy.gpg] https://aquasecurity.github.io/trivy-repo/deb $(lsb_release -sc) main" | sudo tee -a /etc/apt/sources.list.d/trivy.list
+        sudo apt-get update
+        sudo apt-get install trivy -y
+        #command to scan files
+        trivy fs .
