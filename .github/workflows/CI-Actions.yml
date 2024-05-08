@@ -102,7 +102,7 @@ jobs:
       - name: Update image in deployment.yaml                                          
         working-directory: ./Kubernetes
         run: |
-          sed -i 's|sumitjeswani/netflix:.*|sumitjeswani/netflix: '${{ github.sha }}'|' deployment.yml
+          sed -i 's|sumitjeswani/netflix:.*|sumitjeswani/netflix:'${{ github.sha }}'|' deployment.yml
           git config --global user.name 'Sumit Jeswani'
           git config --global user.email 'jeswanisumit1999@gmail.com'
           git add deployment.yml
