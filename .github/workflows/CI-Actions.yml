@@ -75,7 +75,6 @@ jobs:
             TMDB_V3_API_KEY=${{ secrets.TMDB_API_KEY }}
             
       - name: Run Trivy vulnerability scanner
-        if: false
         uses: aquasecurity/trivy-action@master
         with:
           image-ref: "docker.io/sumitjeswani/netflix:${{ github.sha }}"
