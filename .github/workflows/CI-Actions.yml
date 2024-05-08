@@ -80,6 +80,7 @@ jobs:
           build-args: |
             TMDB_V3_API_KEY=${{ secrets.TMDB_API_KEY }}
       - name: Run Trivy vulnerability scanner
+        if: false
         uses: aquasecurity/trivy-action@master
         with:
           image-ref: "docker.io/sumitjeswani/netflix:${{ github.sha }}"
@@ -88,6 +89,17 @@ jobs:
           ignore-unfixed: true
           vuln-type: 'os,library'
           severity: 'CRITICAL,HIGH'
+
+      - name: Trivi Image Scan
+        run: |
+          #install trivy
+          sudo apt-get install wget apt-transport-https gnupg lsb-release -y
+          wget -qO - https://aquasecurity.github.io/trivy-repo/deb/public.key | gpg --dearmor | sudo tee /usr/share/keyrings/trivy.gpg > /dev/null
+          echo "deb [signed-by=/usr/share/keyrings/trivy.gpg] https://aquasecurity.github.io/trivy-repo/deb $(lsb_release -sc) main" | sudo tee -a /etc/apt/sources.list.d/trivy.list
+          sudo apt-get update
+          sudo apt-get install trivy -y
+          #command to scan files
+          trivy image docker.io/sumitjeswani/netflix:${{ github.sha }}
       
       - name: Checkout repo
         uses: actions/checkout@v3
