@@ -77,8 +77,8 @@ jobs:
         working-directory: ./Kubernetes
         run: |
           sed -i 's|sumitjeswani/netflix:.*|sumitjeswani/netflix: '${{ github.sha }}'|' deployment.yml
-          git config --global user.name 'Sumit J'
-          git config --global user.email 'contact@sumitjeswani.in'
+          git config --global user.name 'Sumit Jeswani'
+          git config --global user.email 'jeswanisumit1999@gmail.com'
           git add deployment.yml
           git commit -m "Update deployment.yml"
           git push
