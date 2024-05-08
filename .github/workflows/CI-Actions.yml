@@ -72,13 +72,9 @@ jobs:
           build-args: |
             TMDB_V3_API_KEY=${{ secrets.TMDB_API_KEY }}
       - name: Update image in deployment.yaml
+        working-directory: ./Kubernetes
         run: |
-          echo ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>\n"
-          ls
-          echo ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>\n"
-          pwd
-          echo ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>\n"
-          sed -i 's|sumitjeswani/netflix:.*|sumitjeswani/netflix: '${{ github.sha }}'|' Kubernetes/deployment.yml
+          sed -i 's|sumitjeswani/netflix:.*|sumitjeswani/netflix: '${{ github.sha }}'|' deployment.yml
           git config --global user.name 'Sumit J'
           git config --global user.email 'contact@sumitjeswani.in'
           git add deployment.yml
