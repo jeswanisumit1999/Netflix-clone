@@ -33,10 +33,14 @@ jobs:
         
     - name: SonarQube Scan
       #if: false                                      # Update SONAR_HOST_URL and set this to true
-      uses: sonarsource/sonarqube-scan-action@master
-      env:
-        SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-        SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
+      uses: kitabisa/sonarqube-action@v1.2.0
+      with:
+        host: ${{ secrets.SONAR_TOKEN }}
+        login: ${{ secrets.SONAR_HOST_URL }}
+      #uses: sonarsource/sonarqube-scan-action@master
+      #env:
+      #  SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+      #  SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
         
     - name: Trivy filesystem Scan
       run: |
