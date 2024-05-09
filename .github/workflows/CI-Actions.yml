@@ -35,11 +35,10 @@ jobs:
         fetch-depth: 0
         
     - name: SonarQube Scan
-      #if: false                                      # Update SONAR_HOST_URL and set this to true
-      uses: kitabisa/sonarqube-action@v1.2.0
+      uses: kitabisa/sonarqube-action@master
       with:
-        host: ${{ secrets.SONAR_TOKEN }}
-        login: ${{ secrets.SONAR_HOST_URL }}
+        host: ${{ secrets.SONAR_HOST_URL }}
+        login: ${{ secrets.SONAR_TOKEN }}
       #uses: sonarsource/sonarqube-scan-action@master
       #env:
       #  SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
