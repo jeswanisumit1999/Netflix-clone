@@ -28,17 +28,15 @@ jobs:
     runs-on: ubuntu-latest
     
     steps:
-    - name: Checkout repo
-      uses: actions/checkout@v4
+    - uses: actions/checkout@v4
       with:
-        # Disabling shallow clone is recommended for improving relevancy of reporting
+        # Disabling shallow clones is recommended for improving the relevancy of reporting
         fetch-depth: 0
-        
     - name: SonarQube Scan
-      uses: kitabisa/sonarqube-action@master
-      with:
-        host: ${{ secrets.SONAR_HOST_URL }}
-        login: ${{ secrets.SONAR_TOKEN }}
+      uses: sonarsource/sonarqube-scan-action@master
+      env:
+        SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+        SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
       #uses: sonarsource/sonarqube-scan-action@master
       #env:
       #  SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
